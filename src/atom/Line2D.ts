@@ -1,9 +1,9 @@
-import Renderable from '../interface/Renderable';
+import Shape from '../interface/Shape';
 import Vector from '../basic/Vector';
 import Linear from '../basic/Linear';
 import Canvas from './Canvas';
 
-export default class Line2D extends Linear implements Renderable {
+export default class Line2D extends Linear implements Shape {
     static fromPoints(p1: Vector | Array<number>, p2: Vector | Array<number>): Line2D {
         return new Line2D(new Vector([
             p1[0] * p2[1] - p2[0] * p1[1],
