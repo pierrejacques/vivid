@@ -1,0 +1,30 @@
+{
+  "name": "vivid",
+  "version": "1.0.0",
+  "description": "a model for canvas",
+  "main": "dist/vivid.umd.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pierrejacques/vivid.git"
+  },
+  "keywords": [
+    "canvas"
+  ],
+  "author": "Bee Bee Gee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pierrejacques/vivid/issues"
+  },
+  "homepage": "https://github.com/pierrejacques/vivid#readme",
+  "dependencies": {
+    "rollup": "^0.63.4",
+    "rollup-plugin-typescript2": "^0.16.1",
+    "typescript": "^3.0.1"
+  }
+}
