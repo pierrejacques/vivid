@@ -15,6 +15,6 @@ export default class Color {
     }
     
     get rgba() {
-        return 'rgba(' + ['r', 'g', 'b', 'a'].map(k => this[k].join(',')) + ')';
+        return 'rgba(' + ['r', 'g', 'b', 'a'].map(k => this[k]).join(',') + ')';
     }
 }

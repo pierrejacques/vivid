@@ -6,7 +6,6 @@ export default class Distribution {
             step = Vector.ones(inf.length);
         }
         if (inf.length !== sup.length || inf.length !== step.length) throw new Error('length unmatched');
-        const n = inf.length;
         return new Distribution(() => inf.map((min, index) => {
             const max = sup[index];
             const gap = step[index];
