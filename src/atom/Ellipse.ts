@@ -19,7 +19,7 @@ export default class Ellipse implements Shape {
         this.rotation = d;
     }
 
-    render(canvas: Canvas, styles: Object) {
+    render(canvas: Canvas, styles: Object = {}) {
         const ctx = canvas.context;
         ctx.beginPath();
         ctx.ellipse(

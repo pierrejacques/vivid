@@ -6,14 +6,42 @@
             name="viewport"
             content="width=device-width,minimum-scale=1,initial-scale=1"
         >
-        <title>Vivid Canvas Playground</title>
+        <title>Vivd Canvas Playground</title>
     </head>
 
-    <h1 class="title">canvas playground</h1>
-    <div class="canvas-wrapper">
-        <canvas id="canvas">
-            Your browser does not support canvas
-        </canvas>
+    <div>
+        <section class="front-section">
+            <h1 class="title">canvas playground</h1>
+            <button id="stop" class="stop-btn">Animate</button>
+        </section>
+        <div class="canvas-wrapper">
+            <canvas id="canvas">
+                Your browser does not support canvas
+            </canvas>
+        </div>
     </div>
-    <script src="./js/index.js" />
+
+    <script src="./vivid.umd.js" ></script>
+    <style>
+        .front-section {
+            position: absolute;
+            text-align: center;
+            top: 30vh;
+            left: 0;
+            right: 0;
+        }
+        .title, .stop-btn {
+            font-weight: lighter;
+            font-size: 2em;
+        }
+        .stop-btn {
+            background: #eee;
+            color: #666;
+            border: none;
+            border-radius: 10px;
+            padding: 20px 40px;
+            cursor: pointer;
+            margin-top: 40px;
+        }
+    </style>
 </html>

@@ -16,7 +16,7 @@ export default class Round extends Ellipse {
             Array.prototype.every.call(to[0].minus(this.center), v => v > 0);
     }
 
-    render(canvas: Canvas, styles: Object) {
+    render(canvas: Canvas, styles: Object = {}) {
         const ctx = canvas.context;
         ctx.beginPath();
         ctx.arc(

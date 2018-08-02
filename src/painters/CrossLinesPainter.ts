@@ -16,8 +16,8 @@ interface CrossLinesConfig {
 }
 
 export default class CrossLinesPainter implements Painter {
+    public isAnimating = false;
     private lines: Array<Motion> = [];
-    private roundPool: Array<Array<Round>>;
     private pointGenerator: Distribution;
     private speedGenerator: Distribution;
     private lineColor: Color;
@@ -36,7 +36,7 @@ export default class CrossLinesPainter implements Painter {
         );
         const maxSpeed = new Vector(config.maxSpeed);
         this.speedGenerator = Distribution.uniform(
-            maxSpeed.toInverse(),
+            maxSpeed.toOpposite(),
             maxSpeed,
             Vector.ones(2).times(0.5),
         );
@@ -44,7 +44,6 @@ export default class CrossLinesPainter implements Painter {
         Array(n).fill(null).forEach(() => {
             this.lines.push(this.createLine());
         });
-        this.roundPool = Array(n).fill(Array(n).fill(null));
     }
 
     createLine() {
@@ -61,17 +60,20 @@ export default class CrossLinesPainter implements Painter {
         return new Round(c, this.config.roundSize);
     }
 
-    updateLines() {
+    renderLines() {
         this.lines.forEach(line => line.move());
         this.lines.forEach((line, index) => {
             const lineShape = (line.shape as Line2D);
-            if (!this.canvas.contains(lineShape.para)) {
+            if (!this.canvas.containsLine(lineShape.para)) {
                 this.lines[index] = this.createLine();
             }
+            this.lines[index].shape.render(this.canvas, {
+                strokeStyle: this.lineColor.rgba,
+            });
         });
     }
 
-    updateInteractions() {
+    renderInteractions() {
         this.lines.forEach((lm1, i) => {
             const l1 = lm1.shape as Line2D;
             this.lines.forEach((lm2, j) => {
@@ -79,32 +81,32 @@ export default class CrossLinesPainter implements Painter {
                 if (i >= j) return;
                 const interaction = l1.interaction(l2);
                 if (this.canvas.contains(interaction)) {
-                    if (this.roundPool[i][j]) {
-                        this.roundPool[i][j].center = interaction;
-                    } else {
-                        this.roundPool[i][j] = this.createRound(interaction);
-                    }
-                } else {
-                    this.roundPool[i][j] = null;
+                    this.createRound(interaction).render(this.canvas, {
+                        fillStyle: this.roundColor.rgba,
+                    });
                 }
             });
         });
     }
 
-    animate() {
+    stop() {
+        this.isAnimating = false;
+    }
+
+    animate(frameRate: number = 1) {
+        this.isAnimating = true;
+        let count = 0;
         const frameWork = () => {
-            this.updateLines();
-            this.lines.forEach(line => {
-                line.shape.render(this.canvas, {
-                    strokeStyle: this.lineColor.rgba,
-                });
-            });
-            this.updateInteractions();
-            this.roundPool.forEach(row => row.forEach(round => {
-                round.render(this.canvas, {
-                    fillStyle: this.roundColor.rgba,
-                });
-            }));
+            count = (count + 1) % frameRate;
+            if (count === 0) {
+                this.canvas.clear();
+                this.renderLines();
+                this.renderInteractions();
+            }
+            if (this.isAnimating) {
+                window.requestAnimationFrame(frameWork);
+            }
         }
+        frameWork();
     }
 }
