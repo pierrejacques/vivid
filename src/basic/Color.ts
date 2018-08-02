@@ -1,10 +1,17 @@
+import Vector from './Vector';
+
 export default class Color {
-    constructor(
-        public r: number,
-        public g: number,
-        public b: number,
-        public a: number = 1,
-    ) {}
+    private r: number;
+    private g: number;
+    private b: number;
+    private a: number;
+
+    constructor(v: Vector | Array<number>) {
+        this.r = v[0];
+        this.g = v[1];
+        this.b = v[2];
+        this.a = v[3] || 1;
+    }
     
     get hex() {
         const opacityHex = Math.round(this.a * 255);

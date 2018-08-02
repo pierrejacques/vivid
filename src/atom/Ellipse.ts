@@ -3,6 +3,8 @@ import Vector from '../basic/Vector';
 import Canvas from './Canvas';
 
 export default class Ellipse implements Shape {
+    readonly dimension = 2;
+
     constructor(public center: Vector, public radius: Vector, public rotation: number = 0) {}
 
     move(d: Vector) {

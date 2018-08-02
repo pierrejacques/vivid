@@ -11,6 +11,11 @@ export default class Round extends Ellipse {
         this.radius = this.radius.times(d);
     }
 
+    within(from: Vector, to: Vector): boolean {
+        return Array.prototype.every.call(this.center[0].minus(from), v => v > 0) &&
+            Array.prototype.every.call(to[0].minus(this.center), v => v > 0);
+    }
+
     render(canvas: Canvas, styles: Object) {
         const ctx = canvas.context;
         ctx.beginPath();
